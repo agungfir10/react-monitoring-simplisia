@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import Admin from './pages/Admin';
 import Dashboard from './pages/Dashboard';
@@ -7,8 +8,37 @@ import NotFound from './pages/NotFound';
 import Register from './pages/Register';
 import Reports from './pages/Reports';
 import TableMonitoring from './pages/TableMonitoring';
+import { onBackgroundMessage } from 'firebase/messaging/sw';
+import { messaging, onMessageListener } from './pages/Firebase/firebase';
+import { getToken } from 'firebase/messaging';
+function App() {
+  const [show, setShow] = useState(false);
+  const [notification, setNotification] = useState({ title: '', body: '' });
+  const [isTokenFound, setTokenFound] = useState(false);
+  getToken(setTokenFound);
+  React.useEffect(() => {
+    requestPermission();
+  });
 
-const App = () => {
+  onMessageListener()
+    .then((payload) => {
+      setNotification({
+        title: payload.notification.title,
+        body: payload.notification.body,
+      });
+      console.log(payload);
+      alert(payload.notification.title);
+    })
+    .catch((err) => console.log('failed: ', err));
+
+  function requestPermission() {
+    Notification.requestPermission().then((permission) => {
+      if (permission === 'granted') {
+        // console.log('Notification permission granted.');
+      }
+    });
+  }
+
   return (
     <Routes>
       <Route path="/" element={<Navigate to="/admin/" />} />
@@ -23,6 +53,6 @@ const App = () => {
       <Route path="/admin/register" element={<Register />} />
     </Routes>
   );
-};
+}
 
 export default App;
