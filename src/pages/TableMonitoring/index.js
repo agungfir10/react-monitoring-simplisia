@@ -79,22 +79,22 @@ class TableMonitoring extends React.Component {
                       </th>
                       <th>Jenis</th>
                       <th>Suhu</th>
-                      <th>Kelembapan</th>
+                      <th>Kekeruhan (%)</th>
                       <th>Tanggal & Waktu</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {this.state.results.map((result, index) => (
-                      <tr key={index}>
-                        <td>{(index += 1)}</td>
-                        <td>{result.type}</td>
-                        <td>{result.temp}</td>
-                        <td>{result.humidity}</td>
-                        <td>
-                          {this.convertSecondToDate(result.createdAt.seconds)}
-                        </td>
-                      </tr>
-                    ))}
+                    {this.state.results.map(
+                      ({ type, temp, turbidity, createdAt }, index) => (
+                        <tr key={index}>
+                          <td>{(index += 1)}</td>
+                          <td>{type}</td>
+                          <td>{temp}</td>
+                          <td>{turbidity}</td>
+                          <td>{this.convertSecondToDate(createdAt.seconds)}</td>
+                        </tr>
+                      )
+                    )}
                   </tbody>
                 </table>
               </div>
