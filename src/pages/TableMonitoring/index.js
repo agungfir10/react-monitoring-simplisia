@@ -10,22 +10,29 @@ import {
   where,
 } from 'firebase/firestore';
 import { firestore } from '../Firebase/firebase';
-
+import Table from './Table';
 class TableMonitoring extends React.Component {
   state = {
     results: [],
   };
-  unsub = null;
+  //unsub = null;
   componentDidMount = async () => {
     const q = query(
       collection(firestore, 'results'),
-      limit(5),
-      orderBy('createdAt', 'desc')
+      orderBy('createdAt', 'desc'),
+      limit(16)
     );
-    this.unsub = onSnapshot(q, (querySnapshot) => {
+    onSnapshot(q, (querySnapshot) => {
       const results = querySnapshot.docs.map((doc) => doc.data());
       this.setState({ results });
+      // document
+      //   .getElementsByClassName('dataTables_empty')[0]
+      //   .parentNode.remove();
     });
+    // this.unsub = onSnapshot(q, (querySnapshot) => {
+    //   const results = querySnapshot.docs.map((doc) => doc.data());
+    //   this.setState({ results });
+    // });
   };
 
   convertSecondToDate(seconds) {
@@ -53,7 +60,7 @@ class TableMonitoring extends React.Component {
   }
 
   componentWillUnmount = () => {
-    this.unsub();
+    // this.unsub();
   };
   render() {
     return (
@@ -70,34 +77,9 @@ class TableMonitoring extends React.Component {
               </h6>
             </div>
             <div className="card-body">
-              <div className="table-responsive">
-                <table className="table table-bordered" id="data" width="100%">
-                  <thead>
-                    <tr>
-                      <th width="60" align="center">
-                        No
-                      </th>
-                      <th>Jenis</th>
-                      <th>Suhu</th>
-                      <th>Kekeruhan (%)</th>
-                      <th>Tanggal & Waktu</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {this.state.results.map(
-                      ({ type, temp, turbidity, createdAt }, index) => (
-                        <tr key={index}>
-                          <td>{(index += 1)}</td>
-                          <td>{type}</td>
-                          <td>{temp}</td>
-                          <td>{turbidity}</td>
-                          <td>{this.convertSecondToDate(createdAt.seconds)}</td>
-                        </tr>
-                      )
-                    )}
-                  </tbody>
-                </table>
-              </div>
+              {this.state.results.length !== 0 && (
+                <Table results={this.state.results} />
+              )}
             </div>
           </div>
         </div>

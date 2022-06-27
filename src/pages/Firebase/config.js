@@ -1,11 +1,11 @@
 const config = {
-  apiKey: 'AIzaSyB06POnOPsm69w6wDEaBd06fFAjACPCL4k',
-  authDomain: 'simplisia-monitoring.firebaseapp.com',
-  projectId: 'simplisia-monitoring',
-  storageBucket: 'simplisia-monitoring.appspot.com',
-  messagingSenderId: '820654213409',
-  appId: '1:820654213409:web:0b269a00fbf16656215660',
-  measurementId: 'G-EY3GGSNV2J',
+  apiKey: 'AIzaSyBHVboP51aB6JHVlIZFflRyBFRoyo8tPI0',
+  authDomain: 'monitoring-simplisia.firebaseapp.com',
+  projectId: 'monitoring-simplisia',
+  storageBucket: 'monitoring-simplisia.appspot.com',
+  messagingSenderId: '100591674235',
+  appId: '1:100591674235:web:acc43c14c271a33e3953de',
+  measurementId: 'G-C9FPP2JLYZ',
 };
 
 export default config;

@@ -60,13 +60,6 @@ export const Sidebar = () => {
             <span>Mesin</span>
           </NavLink>
         </li>
-        {/* <!-- Nav Item - Booking --> */}
-        <li className="nav-item">
-          <NavLink className="nav-link" to="/admin/reports">
-            <i className="fas fa-fw fa-shopping-cart"></i>
-            <span>Laporan</span>
-          </NavLink>
-        </li>
         {/* <!-- Divider --> */}
         <hr className="sidebar-divider d-none d-md-block" />
 

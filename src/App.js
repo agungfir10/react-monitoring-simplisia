@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import Admin from './pages/Admin';
 import Dashboard from './pages/Dashboard';
@@ -6,30 +5,26 @@ import Engines from './pages/Engines';
 import Login from './pages/Login';
 import NotFound from './pages/NotFound';
 import Register from './pages/Register';
-import Reports from './pages/Reports';
 import TableMonitoring from './pages/TableMonitoring';
-import { onBackgroundMessage } from 'firebase/messaging/sw';
-import { messaging, onMessageListener } from './pages/Firebase/firebase';
-import { getToken } from 'firebase/messaging';
 function App() {
-  const [show, setShow] = useState(false);
-  const [notification, setNotification] = useState({ title: '', body: '' });
-  const [isTokenFound, setTokenFound] = useState(false);
-  getToken(setTokenFound);
-  React.useEffect(() => {
-    requestPermission();
-  });
+  // const [show, setShow] = useState(false);
+  // const [notification, setNotification] = useState({ title: '', body: '' });
+  // const [isTokenFound, setTokenFound] = useState(false);
+  // getToken(setTokenFound);
+  // React.useEffect(() => {
+  //   requestPermission();
+  // });
 
-  onMessageListener()
-    .then((payload) => {
-      setNotification({
-        title: payload.notification.title,
-        body: payload.notification.body,
-      });
-      console.log(payload);
-      alert(payload.notification.title);
-    })
-    .catch((err) => console.log('failed: ', err));
+  // onMessageListener()
+  //   .then((payload) => {
+  //     setNotification({
+  //       title: payload.notification.title,
+  //       body: payload.notification.body,
+  //     });
+  //     console.log(payload);
+  //     alert(payload.notification.title);
+  //   })
+  //   .catch((err) => console.log('failed: ', err));
 
   function requestPermission() {
     Notification.requestPermission().then((permission) => {
@@ -46,7 +41,6 @@ function App() {
       <Route path="/admin" element={<Admin />}>
         <Route path="/admin" element={<Dashboard />} />
         <Route path="/admin/table" element={<TableMonitoring />} />
-        <Route path="/admin/reports" element={<Reports />} />
         <Route path="/admin/machines" element={<Engines />} />
       </Route>
       <Route path="/admin/login" element={<Login />} />
